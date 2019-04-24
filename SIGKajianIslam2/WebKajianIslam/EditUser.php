@@ -148,7 +148,7 @@ while($data = mysqli_fetch_array($result))
 
 									<div class="form-group">
 									<label>Foto KTP</label>
-									<input type="file" id="fotoktp" name="dua" required>
+									<input type="file" id="fotoktp" name="dua">
 									<p class="help-block">Silahkan Upload Foto/Scan KTP.</p>
 									</div>
 

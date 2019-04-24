@@ -340,29 +340,36 @@ if (isset($_POST['EditKajian'])) {
 	//$check = getimagesize($_FILES["sgambar"]["tmp_name"]);
 
 	// encode&decode gambar
-	define('UPLOAD_DIR', '../../image/poster/');
-	$gambar = base64_encode(file_get_contents( $_FILES["satu"]["tmp_name"] ));
-    $gambar = str_replace('data:image/JPEG;base64,', '', $gambar);
-    $gambar = str_replace(' ', '+', $gambar);
-    $data = base64_decode($gambar);
-    $gambarNama = 'IMG_USR('.uniqid() . ').png';
-    $file = UPLOAD_DIR . $gambarNama;
-    $success = file_put_contents($file, $data);
-    $finalImage = $server.$imagePoster.$gambarNama;
-
-    define('UPLOAD_DIR2', '../../image/tempat/');
-	$gambar2 = base64_encode(file_get_contents( $_FILES["dua"]["tmp_name"] ));
-    $gambar2 = str_replace('data:image/JPEG;base64,', '', $gambar2);
-    $gambar2 = str_replace(' ', '+', $gambar2);
-    $data2 = base64_decode($gambar2);
-    $gambarNama2 = 'IMG_USR('.uniqid() . ').png';
-    $file2 = UPLOAD_DIR2 . $gambarNama2;
-    $success2 = file_put_contents($file2, $data2);
-    $finalImage2 = $server.$imageTempat.$gambarNama2;
+	if($_FILES["satu"]["tmp_name"] != ''){
+		define('UPLOAD_DIR', '../../image/poster/');
+		$gambar = base64_encode(file_get_contents( $_FILES["satu"]["tmp_name"] ));
+		$gambar = str_replace('data:image/JPEG;base64,', '', $gambar);
+		$gambar = str_replace(' ', '+', $gambar);
+		$data = base64_decode($gambar);
+		$gambarNama = 'IMG_USR('.uniqid() . ').png';
+		$file = UPLOAD_DIR . $gambarNama;
+		$success = file_put_contents($file, $data);
+		$finalImage = $server.$imagePoster.$gambarNama;
+	}
+	
+	if ($_FILES["dua"]["tmp_name"] != '') {
+		define('UPLOAD_DIR2', '../../image/tempat/');
+		$gambar2 = base64_encode(file_get_contents( $_FILES["dua"]["tmp_name"] ));
+		$gambar2 = str_replace('data:image/JPEG;base64,', '', $gambar2);
+		$gambar2 = str_replace(' ', '+', $gambar2);
+		$data2 = base64_decode($gambar2);
+		$gambarNama2 = 'IMG_USR('.uniqid() . ').png';
+		$file2 = UPLOAD_DIR2 . $gambarNama2;
+		$success2 = file_put_contents($file2, $data2);
+		$finalImage2 = $server.$imageTempat.$gambarNama2;
+	}
 	// end encode&decode gambar
 
 
-	$sql = "UPDATE formkajian SET namakajian='$namakajian',namapemateri='$namapemateri',namatempat='$namatempat', lat='$latitude', lng='$longtitude',fotoposter='$finalImage',fototempat='$finalImage2',alamat='$alamat', kelurahan='$kelurahan',kecamatan='$kecamatan',tanggalkajian='$tanggalkajian',waktumulai='$waktumulai',waktuselesai='$waktuselesai',kuota='$kuotapeserta',statuspeserta='$statuspeserta',statuskajian='$statuskajian',statusberbayar='$statusberbayar',
+	$sql = "UPDATE formkajian SET namakajian='$namakajian',namapemateri='$namapemateri',namatempat='$namatempat', lat='$latitude', lng='$longtitude'";
+	$sql .= (isset($finalImage)) ? ",fotoposter='$finalImage'" : "";
+	$sql .= (isset($finalImage2)) ? ",fototempat='$finalImage2'" : "";
+	$sql .= ",alamat='$alamat', kelurahan='$kelurahan',kecamatan='$kecamatan',tanggalkajian='$tanggalkajian',waktumulai='$waktumulai',waktuselesai='$waktuselesai',kuota='$kuotapeserta',statuspeserta='$statuspeserta',statuskajian='$statuskajian',statusberbayar='$statusberbayar',
 		Pengelola='$pengelola',kontakpengelola='$kontakpengelola',informasi='$finformasi' WHERE formkajian.id_kajian = '$idkajian';";
 	
 
@@ -668,18 +675,22 @@ if (isset($_POST['EditUser'])) {
  //    $success = file_put_contents($file, $data);
  //    $finalImage = $server.$imageFoto3x4.$gambarNama;
 
-    define('UPLOAD_DIR2', '../../image/ktp/');
-	$gambar2 = base64_encode(file_get_contents( $_FILES["dua"]["tmp_name"] ));
-    $gambar2 = str_replace('data:image/JPEG;base64,', '', $gambar2);
-    $gambar2 = str_replace(' ', '+', $gambar2);
-    $data2 = base64_decode($gambar2);
-    $gambarNama2 = 'IMG_USR('.uniqid() . ').png';
-    $file2 = UPLOAD_DIR2 . $gambarNama2;
-    $success2 = file_put_contents($file2, $data2);
-    $finalImage2 = $server.$imageKTP.$gambarNama2;
+	if ($_FILES["dua"]["tmp_name"] != '') {
+		define('UPLOAD_DIR2', '../../image/ktp/');
+		$gambar2 = base64_encode(file_get_contents( $_FILES["dua"]["tmp_name"] ));
+		$gambar2 = str_replace('data:image/JPEG;base64,', '', $gambar2);
+		$gambar2 = str_replace(' ', '+', $gambar2);
+		$data2 = base64_decode($gambar2);
+		$gambarNama2 = 'IMG_USR('.uniqid() . ').png';
+		$file2 = UPLOAD_DIR2 . $gambarNama2;
+		$success2 = file_put_contents($file2, $data2);
+		$finalImage2 = $server.$imageKTP.$gambarNama2;
+	}
 	// end encode&decode gambar
 
-	$sql = "UPDATE pengguna SET nama='$nama', tempatlahir='$tempatlahir', tanggallahir='$tanggallahir', alamat='$alamat', kelurahan='$kelurahan', kecamatan='$kecamatan', email='$email', sosialmedia='$sosialmedia', fotoktp='$finalImage2', nomorktp='$no_ktp', no_telepon='$no_telepon' WHERE pengguna.id_pengguna = '$ipeng';";
+	$sql = "UPDATE pengguna SET nama='$nama', tempatlahir='$tempatlahir', tanggallahir='$tanggallahir', alamat='$alamat', kelurahan='$kelurahan', kecamatan='$kecamatan', email='$email', sosialmedia='$sosialmedia'";
+	$sql .= (isset($finalImage2)) ? ", fotoktp='$finalImage2'" : "";
+	$sql .=	", nomorktp='$no_ktp', no_telepon='$no_telepon' WHERE pengguna.id_pengguna = '$ipeng';";
 
 	$sql .="UPDATE username SET username='$username', password='$password', level='$level' WHERE username.id_username = '$uname';";
 

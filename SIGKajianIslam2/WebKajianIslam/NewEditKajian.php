@@ -117,12 +117,12 @@ while($data = mysqli_fetch_array($result))
 									</div>
 									<div class="form-group">
 									<label>Gambar Publikasi Kajian</label>
-									<input type="file" id="gambarpublikasikajian" name="satu" required>
+									<input type="file" id="gambarpublikasikajian" name="satu">
 									<p class="help-block">Pilih Gambar Dari Gallery.</p>
 									</div>
 									<div class="form-group">
 									<label>Foto Tempat Kajian</label>
-									<input type="file" id="gambartempatkajian" name="dua" required>
+									<input type="file" id="gambartempatkajian" name="dua">
 									<p class="help-block">Pilih Gambar Dari Gallery.</p>
 									</div>
 									<div class="form-group">
