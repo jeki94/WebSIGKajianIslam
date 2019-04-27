@@ -36,50 +36,58 @@ include_once "../settings/koneksi.php";
 	$token = $default;
 
 	// encode&decode gambar
-	// define('UPLOAD_DIR', '../image/poster/');
-	// $gambar = $_POST['gambarposter'];
-	// $gambar = base64_encode(file_get_contents( $_FILES["satu"]["tmp_name"] ));
- //    $gambar = str_replace('data:image/JPEG;base64,', '', $gambar);
- //    $gambar = str_replace(' ', '+', $gambar);
- //    $data = base64_decode($gambar);
- //    $gambarNama = 'IMG_USR('.uniqid() . ').png';
- //    $file = UPLOAD_DIR . $gambarNama;
- //    $success = file_put_contents($file, $data);
- //    $finalImage = $imagePoster.$gambarNama;
-
- //    define('UPLOAD_DIR2', '../image/tempat/');
- //    $gambar2 = $_POST['gambartempat'];
-	// $gambar2 = base64_encode(file_get_contents( $_FILES["dua"]["tmp_name"] ));
- //    $gambar2 = str_replace('data:image/JPEG;base64,', '', $gambar2);
- //    $gambar2 = str_replace(' ', '+', $gambar2);
- //    $data2 = base64_decode($gambar2);
- //    $gambarNama2 = 'IMG_USR('.uniqid() . ').png';
- //    $file2 = UPLOAD_DIR2 . $gambarNama2;
- //    $success2 = file_put_contents($file2, $data2);
- //    $finalImage2 = $imageTempat.$gambarNama2;
-
+	if($_FILES["gambarposter"]["tmp_name"] != ''){
 		define('UPLOAD_DIR', '../image/poster/');
-		$gambar = $_POST['gambarposter'];
-	    $gambar = str_replace('data:image/JPEG;base64,', '', $gambar);
-	    $gambar = str_replace(' ', '+', $gambar);
-	    $data = base64_decode($gambar);
-	    $gambarNama = 'IMG_'.uniqid() . '.png';
-	    $file = UPLOAD_DIR . $gambarNama;
-	    $success = file_put_contents($file, $data);
-	    $finalImage = $imagePoster.$gambarNama;
+		//$gambar = $_POST['gambarposter'];
+		$gambar = base64_encode(file_get_contents( $_FILES["gambarposter"]["tmp_name"] ));
+		$gambar = str_replace('data:image/JPEG;base64,', '', $gambar);
+		$gambar = str_replace(' ', '+', $gambar);
+		$data = base64_decode($gambar);
+		$gambarNama = 'IMG_USR('.uniqid() . ').png';
+		$file = UPLOAD_DIR . $gambarNama;
+		$success = file_put_contents($file, $data);
+		$finalImage = $server.$imagePoster.$gambarNama;
+	}
+	
+		if ($_FILES["gambartempat"]["tmp_name"] != '') {
+		define('UPLOAD_DIR2', '../image/tempat/');
+		//$gambar2 = $_POST['gambartempat'];
+		$gambar2 = base64_encode(file_get_contents( $_FILES["gambartempat"]["tmp_name"] ));
+		$gambar2 = str_replace('data:image/JPEG;base64,', '', $gambar2);
+		$gambar2 = str_replace(' ', '+', $gambar2);
+		$data2 = base64_decode($gambar2);
+		$gambarNama2 = 'IMG_USR('.uniqid() . ').png';
+		$file2 = UPLOAD_DIR2 . $gambarNama2;
+		$success2 = file_put_contents($file2, $data2);
+		$finalImage2 = $server.$imageTempat.$gambarNama2;
+	}
 
-	    define('UPLOAD_DIR2', '../image/tempat/');
-		$gambar2 = $_POST['gambartempat'];
-	    $gambar2 = str_replace('data:image/JPEG;base64,', '', $gambar2);
-	    $gambar2 = str_replace(' ', '+', $gambar2);
-	    $data2 = base64_decode($gambar2);
-	    $gambarNama2 = 'IMG_'.uniqid() . '.png';
-	    $file2 = UPLOAD_DIR2 . $gambarNama2;
-	    $success2 = file_put_contents($file2, $data2);
-	    $finalImage2 = $imageTempat.$gambarNama2;
+		// define('UPLOAD_DIR', '../image/poster/');
+		// $gambar = $_POST['gambarposter'];
+	 //    $gambar = str_replace('data:image/JPEG;base64,', '', $gambar);
+	 //    $gambar = str_replace(' ', '+', $gambar);
+	 //    $data = base64_decode($gambar);
+	 //    $gambarNama = 'IMG_'.uniqid() . '.png';
+	 //    $file = UPLOAD_DIR . $gambarNama;
+	 //    $success = file_put_contents($file, $data);
+	 //    $finalImage = $imagePoster.$gambarNama;
+
+	 //    define('UPLOAD_DIR2', '../image/tempat/');
+		// $gambar2 = $_POST['gambartempat'];
+	 //    $gambar2 = str_replace('data:image/JPEG;base64,', '', $gambar2);
+	 //    $gambar2 = str_replace(' ', '+', $gambar2);
+	 //    $data2 = base64_decode($gambar2);
+	 //    $gambarNama2 = 'IMG_'.uniqid() . '.png';
+	 //    $file2 = UPLOAD_DIR2 . $gambarNama2;
+	 //    $success2 = file_put_contents($file2, $data2);
+	 //    $finalImage2 = $imageTempat.$gambarNama2;
 	// end encode&decode gambar
 
-		$sql = "UPDATE formkajian set namakajian = '$namakajian', namapemateri = '$namapemateri', namatempat = '$namatempat', lat = '$latitude', lng = '$longtitude', fotoposter = '$finalImage' , fototempat = '$finalImage2' , alamat = '$alamat', kelurahan = '$kelurahan',kecamatan = '$kecamatan', tanggalkajian = '$tanggalkajian', waktumulai = '$waktumulai', waktuselesai = '$waktuselesai', kuota = '$kuotapeserta', statuspeserta = '$statuspeserta', statuskajian = 'Aktif', statusberbayar = '$statusberbayar', Pengelola = '$pengelola' , kontakpengelola = '$kontakpengelola', informasi = '$informasi', id_username = (SELECT id_username FROM username WHERE username='$username' && status='Verifikasi' ) where id_kajian = $id_kajian;";
+		$sql = "UPDATE formkajian SET namakajian='$namakajian',namapemateri='$namapemateri',namatempat='$namatempat', lat='$latitude', lng='$longtitude'";
+	$sql .= (isset($finalImage)) ? ",fotoposter='$finalImage'" : "";
+	$sql .= (isset($finalImage2)) ? ",fototempat='$finalImage2'" : "";
+	$sql .= ",alamat='$alamat', kelurahan='$kelurahan',kecamatan='$kecamatan',tanggalkajian='$tanggalkajian',waktumulai='$waktumulai',waktuselesai='$waktuselesai',kuota='$kuotapeserta',statuspeserta='$statuspeserta',statuskajian='Aktif',statusberbayar='$statusberbayar',
+		Pengelola='$pengelola',kontakpengelola='$kontakpengelola',informasi='$informasi' WHERE formkajian.id_kajian = '$id_kajian';";
 		//$sql .= "UPDATE formkajian SET id_username = (SELECT id_username FROM username WHERE username='$username') WHERE formkajian.id_kajian=LAST_INSERT_ID()";
 
 		$result = mysqli_multi_query($con,$sql);
