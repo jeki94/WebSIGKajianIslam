@@ -21,7 +21,7 @@ if(isset($_GET["namakajian"]) || isset($_GET["tanggalkajian"]) || isset($_GET["w
         try{
             //tampilkan semua data dari mysql
             // $queryMarker = "SELECT * FROM bencana where status='$aktif'";
-            $queryMarker = "SELECT id_kajian, namakajian, tanggalkajian, waktumulai, lat, lng FROM formkajian WHERE namakajian LIKE '%".$namakajian."%' AND tanggalkajian = '".$tanggalkajian."' AND waktumulai LIKE '%".$waktumulai."%' && statuskajian='aktif'";
+            $queryMarker = "SELECT id_kajian, namakajian, tanggalkajian, waktumulai, lat, lng FROM formkajian WHERE namakajian LIKE '%".$namakajian."%' AND tanggalkajian LIKE '%".$tanggalkajian."%' AND waktumulai LIKE '%".$waktumulai."%' && statuskajian='%aktif%'";
             $getData = $conn->prepare($queryMarker);
             $getData->execute();
 
