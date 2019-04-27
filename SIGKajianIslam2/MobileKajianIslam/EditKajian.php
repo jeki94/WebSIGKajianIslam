@@ -36,30 +36,28 @@ include_once "../settings/koneksi.php";
 	$token = $default;
 
 	// encode&decode gambar
-	if($_FILES["gambarposter"]["tmp_name"] != ''){
+	if(isset($_POST['gambartempat'])){
 		define('UPLOAD_DIR', '../image/poster/');
-		//$gambar = $_POST['gambarposter'];
-		$gambar = base64_encode(file_get_contents( $_FILES["gambarposter"]["tmp_name"] ));
-		$gambar = str_replace('data:image/JPEG;base64,', '', $gambar);
-		$gambar = str_replace(' ', '+', $gambar);
-		$data = base64_decode($gambar);
-		$gambarNama = 'IMG_USR('.uniqid() . ').png';
-		$file = UPLOAD_DIR . $gambarNama;
-		$success = file_put_contents($file, $data);
-		$finalImage = $server.$imagePoster.$gambarNama;
+		$gambar = $_POST['gambarposter'];
+	    $gambar = str_replace('data:image/JPEG;base64,', '', $gambar);
+	    $gambar = str_replace(' ', '+', $gambar);
+	    $data = base64_decode($gambar);
+	    $gambarNama = 'IMG_'.uniqid() . '.png';
+	    $file = UPLOAD_DIR . $gambarNama;
+	    $success = file_put_contents($file, $data);
+	    $finalImage = $imagePoster.$gambarNama;
 	}
 	
-		if ($_FILES["gambartempat"]["tmp_name"] != '') {
+	if (isset($_POST['gambartempat'])) {
 		define('UPLOAD_DIR2', '../image/tempat/');
-		//$gambar2 = $_POST['gambartempat'];
-		$gambar2 = base64_encode(file_get_contents( $_FILES["gambartempat"]["tmp_name"] ));
+		$gambar2 = $_POST['gambartempat'];
 		$gambar2 = str_replace('data:image/JPEG;base64,', '', $gambar2);
 		$gambar2 = str_replace(' ', '+', $gambar2);
 		$data2 = base64_decode($gambar2);
-		$gambarNama2 = 'IMG_USR('.uniqid() . ').png';
+		$gambarNama2 = 'IMG_'.uniqid() . '.png';
 		$file2 = UPLOAD_DIR2 . $gambarNama2;
 		$success2 = file_put_contents($file2, $data2);
-		$finalImage2 = $server.$imageTempat.$gambarNama2;
+		$finalImage2 = $imageTempat.$gambarNama2;
 	}
 
 		// define('UPLOAD_DIR', '../image/poster/');
