@@ -613,7 +613,7 @@ if(isset($_POST['TambahUser']))
 
     		$sql .="INSERT INTO username(username,password,token,status,level,id_pengguna)VALUES('$username','$password','$token','$status','$level',LAST_INSERT_ID());";
 
-		$check="SELECT * FROM username WHERE username = '$username' && password='$password'";
+		$check="SELECT * FROM username WHERE username = '$username'";
 		
 		$rs = mysqli_query($con,$check);
 		$data = mysqli_fetch_array($rs, MYSQLI_NUM);
