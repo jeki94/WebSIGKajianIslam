@@ -20,7 +20,7 @@ include_once "../settings/koneksi.php";
 	$no_telepon = $_POST['no_telepon'];
 	$no_ktp = $_POST['no_ktp'];
 	$level = $_POST['level'];
-		$role = $user;
+		// $role = $user;
 		$status = $noVerifikasi;
 		$token = $default;
 
