@@ -37,7 +37,13 @@ include('../settings/koneksi.php') ;
 						<div class="panel-body">
 
 						<div class="col-md-6">
-
+							<?php 
+								if(isset($_GET['err'])){
+							?>
+									<div class="alert alert-danger" role="alert">Username anda telah digunakan</div>
+							<?php
+								}
+							?>
 							<form role="form" method="post" action="service/function.php" enctype="multipart/form-data">
 									<div class="form-group">
 									<label>Username</label>

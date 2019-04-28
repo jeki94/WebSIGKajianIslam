@@ -618,7 +618,7 @@ if(isset($_POST['TambahUser']))
 		$rs = mysqli_query($con,$check);
 		$data = mysqli_fetch_array($rs, MYSQLI_NUM);
 		if($data[0] > 1) {
-			echo "Username anda telah digunakan";
+			header("Location:../VerifikasiUser.php?err=dupus");
 		}else{
 			$result = mysqli_multi_query($con,$sql);
 			if ($result) {
