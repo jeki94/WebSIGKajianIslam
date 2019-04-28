@@ -36,7 +36,7 @@ include('../settings/koneksi.php') ;
 						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 						<div class="panel-body">
 
-						<div class="col-md-6">
+						<div class="col-md-12">
 							<?php 
 								if(isset($_GET['err'])){
 							?>
@@ -44,6 +44,9 @@ include('../settings/koneksi.php') ;
 							<?php
 								}
 							?>
+						</div>
+
+						<div class="col-md-6">
 							<form role="form" method="post" action="service/function.php" enctype="multipart/form-data">
 									<div class="form-group">
 									<label>Username</label>
